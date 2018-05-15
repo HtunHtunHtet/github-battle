@@ -14,8 +14,8 @@ function PlayerPreview (props){
                 <h2 className='username'>@ {props.username} </h2>
             </div>
             <button
-                className='reset' >
-                onClick={props.onReset.bind(null, props.id)}
+                className='reset'
+                onClick={props.onReset.bind(null, props.id)}>
                     Reset
             </button>
         </div>
@@ -111,7 +111,7 @@ class Battle extends React.Component {
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handelReset = this.handelReset.bind(this);
+        this.handleReset = this.handleReset.bind(this);
     }
 
     handleSubmit (id, username) {
