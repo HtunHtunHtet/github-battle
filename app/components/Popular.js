@@ -1,7 +1,7 @@
 var React  = require('react');
 var PropTypes = require('prop-types');
 var api = require('../utils/api');
-
+var Loading = require('./loading');
 
 
 //stateless function
@@ -114,7 +114,7 @@ class Popular extends React.Component {
 
                 {/*{JSON.stringify(this.state.repos, 2, null)}*/}
                 {
-                    !this.state.repos ? <p>Loading</p> : <RepoGrid repos = {this.state.repos} />
+                    !this.state.repos ? <Loading text="Configuring" speed={100}/> : <RepoGrid repos = {this.state.repos} />
                 }
 
             </div>
