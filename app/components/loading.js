@@ -1,5 +1,5 @@
-const React = require('react');
-const PropTyps = require('prop-types');
+import  React from 'react';
+import PropTypes from 'prop-types';
 
 var styles ={
     content:{
@@ -42,8 +42,8 @@ class Loading extends React.Component{
 }
 
 Loading.propTypes = {
-    text: PropTyps.string.isRequired,
-    speed: PropTyps.number.isRequired
+    text: PropTypes.string.isRequired,
+    speed: PropTypes.number.isRequired
 };
 
 Loading.defaultProps    = {
@@ -51,4 +51,4 @@ Loading.defaultProps    = {
     speed: 300
 }
 
-module.exports = Loading
+export default Loading;

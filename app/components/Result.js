@@ -1,14 +1,12 @@
-var React = require ('react');
-var queryString = require ('query-string');
-var api= require ('../utils/api');
-var Link = require ('react-router-dom').Link;
-var PropTypes = require ('prop-types');
-var PlayerPreview = require('./PlayerPreview');
-var Loading     = require('./loading');
+import React from 'react';
+import queryString from 'query-string';
+import { battle } from  '../utils/api';
+import { Link }  from 'react-router-dom';
+import PropTypes from 'prop-types';
+import PlayerPreview from './PlayerPreview';
+import Loading from './loading';
 
-function Profile(props){
-    var info = props.info;
-
+function Profile({info}){
     return(
         <PlayerPreview username={info.login} avatar={info.avatar_url}>
             <ul className='space-list-items'>
@@ -25,12 +23,12 @@ function Profile(props){
 }
 
 
-function Player (props){
+function Player ({label , score, profile}){
     return(
         <div>
-            <h1 className='header'>{props.label}</h1>
-            <h3 style={{textAlign:'center'}}>Score: {props.score}</h3>
-            <Profile info={props.profile}/>
+            <h1 className='header'>{label}</h1>
+            <h3 style={{textAlign:'center'}}>Score: {score}</h3>
+            <Profile info={profile}/>
         </div>
     )
 }
@@ -54,41 +52,35 @@ class Result extends React.Component{
     }
 
     componentDidMount(){
-        var players = queryString.parse(this.props.location.search);
+        const {playerOneName, playerTwoName} = queryString.parse(this.props.location.search);
 
 
-        api.battle([
-            players.playerOneName,
-            players.playerTwoName
-        ]).then(function(results){
+
+        battle([
+            playerOneName,
+            playerTwoName
+        ]).then((results) => {
             /*console.log('result',results);*/
 
             if (results === null) {
-                return this.setState(function(){
-                    return {
+                return this.setState(() =>({
                         error: 'looks like there was error.Check that both users exist on Github',
                         loading: false,
-                    }
-                })
+
+                }))
             }
 
-            this.setState(function(){
-                return{
+            this.setState(()=>({
                     error: null,
                     winner: results[0],
                     loser : results [1],
                     loading: false
-                }
-            });
-        }.bind(this));
+                }))
+        });
     }
 
     render () {
-        var winner  = this.state.winner;
-        var loser   = this.state.loser;
-        var error   = this.state.error;
-        var loading = this.state.loading;
-
+        const {winner, loser, error, loading} = this.state;
         if(loading === true) {
             return <Loading />
         }
@@ -124,4 +116,4 @@ class Result extends React.Component{
     }
 }
 
-module.exports = Result;
+export default Result;
