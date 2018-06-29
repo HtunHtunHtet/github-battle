@@ -48,7 +48,7 @@ export async function battle(players){
         .catch(handleError);
 
 
-    return result === null
+    return results === null
             ? results
             : sortPlayers(results);
 
